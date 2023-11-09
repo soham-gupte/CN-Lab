@@ -20,19 +20,22 @@ res = []
 offset = 0
 remaining_data = total_data_size
 total_data_len = 0
+mf = 1
 
 frag_data = 0
 
 while remaining_data > 0 :
-    if (remaining_data < frag_data_len) :
+    if (remaining_data <= frag_data_len) :
         frag_data = remaining_data
+        mf = 0
     else :
         frag_data = frag_data_len
     remaining_data = remaining_data - frag_data_len
-    total_data_len += frag_data + 20
+    total_data_len += frag_data + header_size
     # res.append(list())
     print(f"Fragment no. {frag_num}:")
     print(f"Length = {frag_data}")
+    print(f"MF flag = {mf}")
     print(f"Offset = {offset}\n")
     offset += int(frag_data_len/8)
     frag_num += 1
